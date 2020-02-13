@@ -1,4 +1,4 @@
 # Compilator
 Compilator creation project
 
-Participants: Zyranov, Piscenko, Filipeckaya
+Participants: Zyryanov, Piscenko, Filipeckaya
