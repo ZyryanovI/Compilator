@@ -10,8 +10,6 @@ DIGIT           [0-9]
 LETTER          [a-zA-Z]
 Id              {LETTER}({DIGIT}|{LETTER})*
 Integer         [1-9]{DIGIT}*|0
-Operation       ( "&&" | "<" | "+" | "-" | "*" )
-
 
 %%
 \n\r|\r\n|\n|\r { /* skip empty line */ }
@@ -33,6 +31,12 @@ Operation       ( "&&" | "<" | "+" | "-" | "*" )
 "="             printf("ATTR ")
 "."             printf("DOT ")
 "!"             printf("NOT ")
+
+"&&"            printf("AND ")
+"<"             printf("LESS ")
+"+"             printf("ADD ")
+"-"             printf("SUB ")
+"*"             printf("MUL ")
 
 "("             printf("L_BRACE ")
 ")"             printf("R_BRACE ")
@@ -57,5 +61,4 @@ Operation       ( "&&" | "<" | "+" | "-" | "*" )
 
 {Id}            printf("ID ")
 {Integer}       printf("INT ")
-{Operation}     printf("OPERATION" )
 %%
