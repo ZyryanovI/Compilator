@@ -1,6 +1,4 @@
 %option reentrant noyywrap never-interactive nounistd
-%option bison-bridge
-%option bison-locations
 
 %option prefix="mj"
 %option outfile="MiniJava.Lexer.cpp" header-file="MiniJava.Lexer.h"
@@ -10,6 +8,8 @@ DIGIT           [0-9]
 LETTER          [a-zA-Z]
 Id              {LETTER}({DIGIT}|{LETTER})*
 Integer         [1-9]{DIGIT}*|0
+Operation       ( "&&" | "<" | "+" | "-" | "*" )
+
 
 %%
 \n\r|\r\n|\n|\r { /* skip empty line */ }
@@ -31,12 +31,6 @@ Integer         [1-9]{DIGIT}*|0
 "="             printf("ATTR ")
 "."             printf("DOT ")
 "!"             printf("NOT ")
-
-"&&"            printf("AND ")
-"<"             printf("LESS ")
-"+"             printf("ADD ")
-"-"             printf("SUB ")
-"*"             printf("MUL ")
 
 "("             printf("L_BRACE ")
 ")"             printf("R_BRACE ")
