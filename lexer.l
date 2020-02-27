@@ -1,6 +1,4 @@
 %option reentrant noyywrap never-interactive nounistd
-%option bison-bridge
-%option bison-locations
 
 %option prefix="mj"
 %option outfile="MiniJava.Lexer.cpp" header-file="MiniJava.Lexer.h"
@@ -57,5 +55,4 @@ Operation       ( "&&" | "<" | "+" | "-" | "*" )
 
 {Id}            printf("ID ")
 {Integer}       printf("INT ")
-{Operation}     printf("OPERATION" )
 %%
