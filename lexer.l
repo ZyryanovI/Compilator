@@ -1,10 +1,17 @@
-%{
-    #include <stdio.h>
-%}
+%option reentrant noyywrap never-interactive nounistd
+%option bison-bridge
+%option bison-locations
 
-identifier      [_a-zA-Z][_a-zA-Z0-9]*
-operation       ( "&&" | "<" | "+" | "-" | "*" )
-integer         ([1-9][0-9]* | "0")
+%option prefix="mj"
+%option outfile="MiniJava.Lexer.cpp" header-file="MiniJava.Lexer.h"
+
+
+DIGIT           [0-9]
+LETTER          [a-zA-Z]
+Id              {LETTER}({DIGIT}|{LETTER})*
+Integer         [1-9]{DIGIT}*|0
+Operation       ( "&&" | "<" | "+" | "-" | "*" )
+
 
 %%
 \n\r|\r\n|\n|\r { /* skip empty line */ }
@@ -48,6 +55,7 @@ integer         ([1-9][0-9]* | "0")
 
 .               printf("ERROR ")
 
-{identifier}    printf("ID ")
-{integer}       printf("INT ")
+{Id}            printf("ID ")
+{Integer}       printf("INT ")
+{Operation}     printf("OPERATION" )
 %%
