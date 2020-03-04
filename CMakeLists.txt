@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
-project(compilers)
+project(test_flex)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-add_executable(compilers main.cpp)
+find_package(FLEX REQUIRED)
+FLEX_TARGET(MyScanner lexer.l ${CMAKE_CURRENT_BINARY_DIR}/MiniJava.Lexer.h)
 
-find_package(BISON)
-find_package(FLEX)
-
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+add_executable(test_flex
+main.cpp
+${FLEX_MyScanner_OUTPUTS}
+)
