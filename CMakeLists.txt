@@ -8,6 +8,7 @@ FLEX_TARGET(MyScanner lexer.l ${CMAKE_CURRENT_BINARY_DIR}/MiniJava.Lexer.h)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable(test_flex
-main.cpp
+        main.cpp
+        MiniJava.Lexer.cpp
 ${FLEX_MyScanner_OUTPUTS}
 )
