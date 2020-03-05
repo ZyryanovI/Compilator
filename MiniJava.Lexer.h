@@ -694,7 +694,7 @@ extern int yylex (yyscan_t yyscanner);
 #undef yyTABLES_NAME
 #endif
 
-#line 58 "lexer.l"
+#line 65 "lexer.l"
 
 
 #line 701 "MiniJava.Lexer.h"

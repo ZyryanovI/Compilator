@@ -13,6 +13,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5a5aca5d-a8ba-460a-b561-c47c4cd99572" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MiniJava.Lexer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MiniJava.Lexer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MiniJava.Lexer.h" beforeDir="false" afterPath="$PROJECT_DIR$/MiniJava.Lexer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer.l" beforeDir="false" afterPath="$PROJECT_DIR$/lexer.l" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +38,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager">
     <configuration name="test_flex" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="test_flex" TARGET_NAME="test_flex" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="test_flex" RUN_TARGET_NAME="test_flex">
@@ -55,7 +64,7 @@
       <updated>1582795185730</updated>
       <workItem from="1582795189446" duration="519000" />
       <workItem from="1583336783712" duration="885000" />
-      <workItem from="1583399865226" duration="1290000" />
+      <workItem from="1583399865226" duration="2573000" />
     </task>
     <servers />
   </component>

@@ -32,6 +32,12 @@ Operation       ( "&&" | "<" | "+" | "-" | "*" )
 "."             printf("DOT ");
 "!"             printf("NOT ");
 
+"&&"            printf("AND ");
+"<"             printf("LESS ");
+"+"             printf("ADD ");
+"-"             printf("SUB ");
+"*"             printf("MUL ");
+
 "("             printf("L_BRACE ");
 ")"             printf("R_BRACE ");
 "["             printf("LSQ_BRACE ");
@@ -51,8 +57,9 @@ Operation       ( "&&" | "<" | "+" | "-" | "*" )
 "true"          printf("TRUE ");
 "false"         printf("FALSE ");
 
-.               printf("ERROR ");
 
 {Id}            printf("ID ");
 {Integer}       printf("INT ");
+
+.               printf("ERROR ");
 %%

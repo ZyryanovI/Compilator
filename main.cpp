@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
         in.read(&contents[0], len);
 
         mj_scan_string(contents.data(), scanner);
+        mjlex(scanner);
     }
 
 
