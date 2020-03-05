@@ -1,3 +1,0 @@
-/home/ilya/Compilators/Compilator/build/CMakeFiles/rebuild_cache.dir
-/home/ilya/Compilators/Compilator/build/CMakeFiles/test_flex.dir
-/home/ilya/Compilators/Compilator/build/CMakeFiles/edit_cache.dir

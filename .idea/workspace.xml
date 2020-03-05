@@ -11,13 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a5aca5d-a8ba-460a-b561-c47c4cd99572" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MiniJava.Lexer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MiniJava.Lexer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MiniJava.Lexer.h" beforeDir="false" afterPath="$PROJECT_DIR$/MiniJava.Lexer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer.l" beforeDir="false" afterPath="$PROJECT_DIR$/lexer.l" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="5a5aca5d-a8ba-460a-b561-c47c4cd99572" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,7 +58,7 @@
       <updated>1582795185730</updated>
       <workItem from="1582795189446" duration="519000" />
       <workItem from="1583336783712" duration="885000" />
-      <workItem from="1583399865226" duration="2573000" />
+      <workItem from="1583399865226" duration="2640000" />
     </task>
     <servers />
   </component>
