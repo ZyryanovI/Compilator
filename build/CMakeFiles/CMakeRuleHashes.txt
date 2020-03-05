@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+f9effd1aee60a1032148b8615d7ecdee MiniJava.Lexer.h
