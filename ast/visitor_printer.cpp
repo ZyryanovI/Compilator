@@ -3,7 +3,6 @@
 namespace ast{
 using namespace MC;
 
-
 void VisitorPrettyPrinter::visit(const ExpressionInt* expr) {
     std::cout << "Int(" << expr->getValue() << ")";
 }

@@ -12,6 +12,7 @@
 #include <handlers/class.hpp>
 #include <handlers/goal.hpp>
 
+
 namespace ast {
 
 class VisitorPrettyPrinter : public IVisitor {
