@@ -5,7 +5,7 @@
 
 #include <yyltype.hpp>
 #include <handlers/visitable.hpp>
-#include <visitors/ivisitor.hpp>
+#include <visitor.hpp>
 
 #include <handlers/expressions.hpp>
 
