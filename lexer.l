@@ -1,65 +1,158 @@
-%option reentrant noyywrap never-interactive nounistd
+%{
+#include <iostream>
+#include "mini_scanner.h"
+%}
 
-%option prefix="mj"
-%option outfile="MiniJava.Lexer.cpp" header-file="MiniJava.Lexer.h"
+%option c++
+%option noyywrap
+%option yyclass="MiniScanner"
 
+%{
+    int lexem_iterator = 0;
+%}
 
-DIGIT           [0-9]
-LETTER          [a-zA-Z]
-Id              {LETTER}({DIGIT}|{LETTER})*
-Integer         [1-9]{DIGIT}*|0
-Operation       ( "&&" | "<" | "+" | "-" | "*" )
+LEX_COMMENT 		\/\/.*|\/\*((.|\n)*?)\*\/
+LEX_SPACE			[\n\r\t ]+
 
+LEX_CLASS 			"class"
+
+LEX_PIBLIC			"public"
+LEX_STATIC			"static"
+LEX_VOID			"void"
+LEX_MAIN 			"main"
+LEX_EXTENDS 		"extends"
+LEX_RETURN 			"return"
+
+LEX_STRING 			"String"
+LEX_INT 			"int"
+LEX_BOOL 			"boolean"
+
+LEX_SEMI			";"
+LEX_ASSIGN			"="
+LEX_DOT				"."
+
+LEX_NOT				"!"
+LEX_AND 			"&&"
+
+LEX_L_BRACE 		"("
+LEX_R_BRACE 		")"
+LEX_LSQ_BRACE 		"["
+LEX_RSQ_BRACE  		"]"
+LEX_LF_BRACE 		"{"
+LEX_RF_BRACE 		"}"
+
+LEX_IF 				"if"
+LEX_ELSE 			"else"
+LEX_WHILE 			"while"
+LEX_OUT 			"System.out.println"
+
+LEX_LEN 			"length"
+LEX_THIS 			"this"
+LEX_NEW 			"new"
+
+LEX_LOGIC_LIT 		"True" | "False"
+LEX_DIGIT       [0-9]
+LEX_LETTER      [a-zA-Z]
+LEX_ID          {LETTER}({DIGIT}|{LETTER})*
+LEX_INTEGER     [1-9]{DIGIT}*|0
+LEX_OPERATION   "&&" | "<" | "+" | "-" | "*"
 
 %%
-\n\r|\r\n|\n|\r { /* skip empty line */ }
 
-"class"         printf("CLASS ");
+{LEX_INTEGER} {
+    handleToken("INTEGER", lexem_iterator);
+}
 
-"public"        printf("PUBLIC ");
-"static"        printf("STATIC ");
-"void"          printf("VOID ");
-"main"          printf("MAIN ");
-"extends"       printf("EXTENDS ");
-"return"        printf("RETURN ");
+{LEX_LOGIC_LIT} {
+    handleToken("LOGIC_LITERAL", lexem_iterator);
+}
 
-"String"        printf("STRING ");
-"int"           printf("INT ");
-"boolean"       printf("BOOL ");
+{LEX_CLASS} {
+    handleToken("CLASS", lexem_iterator);
+}
 
-";"             printf("SEMI ");
-"="             printf("ATTR ");
-"."             printf("DOT ");
-"!"             printf("NOT ");
+{LEX_PUBLIC} {
+    handleToken("PUBLIC", lexem_iterator);
+}
 
-"&&"            printf("AND ");
-"<"             printf("LESS ");
-"+"             printf("ADD ");
-"-"             printf("SUB ");
-"*"             printf("MUL ");
+{LEX_STATIC} {
+    handleToken("STATIC", lexem_iterator);
+}
 
-"("             printf("L_BRACE ");
-")"             printf("R_BRACE ");
-"["             printf("LSQ_BRACE ");
-"]"             printf("RSQ_BRACE ");
-"{"             printf("LF_BRACE ");
-"}"             printf("RF_BRACE ");
+{LEX_VOID} {
+    handleToken("VOID", lexem_iterator);
+}
 
-"if"            printf("IF ");
-"else"          printf("ELSE ");
-"while"         printf("WHILE ");
-"System.out.println"    printf("OUT ");
+{LEX_MAIN} {
+    handleToken("MAIN", lexem_iterator);
+}
 
-"length"        printf("LEN ");
-"this"          printf("THIS ");
-"new"           printf("NEW ");
+{LEX_EXTENDS} {
+    handleToken("EXTENDS", lexem_iterator);
+}
 
-"true"          printf("TRUE ");
-"false"         printf("FALSE ");
+{LEX_RETURN} {
+    handleToken("RETURN", lexem_iterator);
+}
 
+{LEX_IF} {
+    handleToken("IF", lexem_iterator);
+}
 
-{Id}            printf("ID ");
-{Integer}       printf("INT ");
+{LEX_ELSE} {
+    handleToken("ELSE", lexem_iterator);
+}
 
-.               printf("ERROR ");
+{LEX_WHILE} {
+    handleToken("WHILE", lexem_iterator);
+}
+
+{LEX_OUT} {
+    handleToken("OUT", lexem_iterator);
+}
+
+{LEX_LEN} {
+    handleToken("LEN", lexem_iterator);
+}
+
+{LEX_NEW} {
+    handleToken("NEW", lexem_iterator);
+}
+
+{LEX_THIS} {
+    handleToken("THIS", lexem_iterator);
+}
+
+{LEX_STRING} {
+    handleToken("STRING", lexem_iterator);
+}
+
+{LEX_BOOL} {
+    handleToken("BOOL", lexem_iterator);
+}
+
+{LEX_INT} {
+    handleToken("INT", lexem_iterator);
+}
+
+{LEX_AND} {
+    handleToken("AND", lexem_iterator);
+}
+
+{LEX_ID} {
+    handleToken("ID(" + std::string(yytext) +")", lexem_iterator);
+}
+
+{LEX_SPACE} {
+    handleToken("", lexem_iterator);
+}
+
+{LEX_COMMENT} {
+    handleToken("COMMENT", lexem_iterator);
+}
+
+{LEX_OPERATORS} { handleToken(std::string(1, yytext[0]), lexem_iterator); }
+
+.  { std::cout << std::endl << "UNKNOWN  " << yytext << std::endl; }
+
 %%
