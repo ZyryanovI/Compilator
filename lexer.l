@@ -51,11 +51,11 @@ LEX_THIS 			"this"
 LEX_NEW 			"new"
 
 LEX_LOGIC_LIT 		"True" | "False"
-LEX_DIGIT       [0-9]
-LEX_LETTER      [a-zA-Z]
-LEX_ID          {LETTER}({DIGIT}|{LETTER})*
-LEX_INTEGER     [1-9]{DIGIT}*|0
-LEX_OPERATION   "&&" | "<" | "+" | "-" | "*"
+LEX_DIGIT           [0-9]
+LEX_LETTER          [a-zA-Z]
+LEX_ID              {LETTER}({DIGIT}|{LETTER})*
+LEX_INTEGER         [1-9]{DIGIT}*|0
+LEX_OPERATION       "&&" | "<" | "+" | "-" | "*"
 
 %%
 
@@ -151,7 +151,7 @@ LEX_OPERATION   "&&" | "<" | "+" | "-" | "*"
     handleToken("COMMENT", lexem_iterator);
 }
 
-{LEX_OPERATORS} { handleToken(std::string(1, yytext[0]), lexem_iterator); }
+{LEX_OPERATION} { handleToken(std::string(1, yytext[0]), lexem_iterator); }
 
 .  { std::cout << std::endl << "UNKNOWN  " << yytext << std::endl; }
 
