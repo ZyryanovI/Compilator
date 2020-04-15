@@ -6,7 +6,7 @@
 
 #include <yyltype.hpp>
 #include <handlers/visitable.hpp>
-#include <visitors/ivisitor.hpp>
+#include <visitor.hpp>
 
 #include <handlers/var_declaration.hpp>
 #include <handlers/statements.hpp>

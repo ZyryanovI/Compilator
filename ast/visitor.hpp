@@ -20,6 +20,9 @@ class TypeArray;
 class TypeClass;
 class StatementAssign;
 class MainClass;
+class ExpressionNewId;
+class ExpressionNewIntArray;
+class ExpressionCallFunction;
 
 typedef std::shared_ptr<ExpressionInt> PExpressionInt;
 typedef std::shared_ptr<ExpressionBinaryOp> PExpressionBinaryOp;
@@ -35,6 +38,9 @@ typedef std::shared_ptr<TypeArray> PTypeArray;
 typedef std::shared_ptr<TypeClass> PTypeClass;
 typedef std::shared_ptr<StatementAssign> PStatementAssign;
 typedef std::shared_ptr<MainClass> PMainClass;
+typedef std::shared_ptr<ExpressionNewId> PExpressionNewId;
+typedef std::shared_ptr<ExpressionNewIntArray> PExpressionNewIntArray;
+typedef std::shared_ptr<ExpressionCallFunction> PExpressionCallFunction;
 
 class IVisitor {
 public:
@@ -54,6 +60,9 @@ public:
     virtual void visit(const TypeClass* type) = 0;
     virtual void visit(const StatementAssign* statement) = 0;
     virtual void visit(const MainClass* main_class) = 0;
+    virtual void visit(const ExpressionNewId* expr) = 0;
+    virtual void visit(const ExpressionNewIntArray* expr) = 0;
+    virtual void visit(const ExpressionCallFunction* expr) = 0;
 };
 
 }

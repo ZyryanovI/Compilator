@@ -7,7 +7,7 @@
 #include <vector>
 #include <yyltype.hpp>
 #include <handlers/visitable.hpp>
-#include <visitors/ivisitor.hpp>
+#include <visitor.hpp>
 
 namespace ast {
 
