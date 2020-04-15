@@ -30,6 +30,7 @@ LEX_BOOL 			"boolean"
 LEX_SEMI			";"
 LEX_ASSIGN			"="
 LEX_DOT				"."
+LEX_COMMA           ","
 
 LEX_NOT				"!"
 LEX_AND 			"&&"
