@@ -42,7 +42,6 @@ bool Token::operator == (const std::string& other) const {
     return get_string_presentation_of_token() == other;
 }
 
-// -------------------------------------------------------
 
 int MiniScanner::handleToken(const std::string& token_value, int& curr_ind)
 {
