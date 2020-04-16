@@ -2,12 +2,12 @@
 
 %{
 #include <string>
-#include "src/mc_scanner.hpp"
+#include "src/mj_scanner.hpp"
 
 #undef  YY_DECL
-#define YY_DECL int MC::MC_Scanner::yylex( MC::MC_Parser::semantic_type * const lval, MC::MC_Parser::location_type *loc )
+#define YY_DECL int MJ::MJ_Scanner::yylex( MJ::MJ_Parser::semantic_type * const lval, MJ::MJ_Parser::location_type *loc )
 
-using token = MC::MC_Parser::token;
+using token = MJ::MJ_Parser::token;
 
 #define YY_NO_UNISTD_H
 #define YY_USER_ACTION loc->step(); loc->columns(yyleng);
@@ -16,14 +16,9 @@ using token = MC::MC_Parser::token;
 
 %option debug
 %option nodefault
-%option yyclass="MC::MC_Scanner"
+%option yyclass="MJ::MJ_Scanner"
 %option noyywrap
 %option c++
-
-/* The rules are executed sequentially, therefore in this place the order of recording the
- * instructions is IMPORTANT. In particular, regular expressions that are responsible
- * for keywords like "static" must be placed before the regular expression that is responsible
- * for naming variables. Thus, due to a higher priority, words like "this" become *keywords*. */
 
 LEX_CLASS      "class"
 LEX_PRIVACY    "private"|"public"
