@@ -1,159 +1,232 @@
+%option outfile="MiniJava.Lexer.cpp" header-file="MiniJava.Lexer.h"
+
 %{
-#include <iostream>
-#include "mini_scanner.h"
+#include <string>
+#include "src/mc_scanner.hpp"
+
+#undef  YY_DECL
+#define YY_DECL int MC::MC_Scanner::yylex( MC::MC_Parser::semantic_type * const lval, MC::MC_Parser::location_type *loc )
+
+using token = MC::MC_Parser::token;
+
+#define YY_NO_UNISTD_H
+#define YY_USER_ACTION loc->step(); loc->columns(yyleng);
+#define yyterminate() return token::END
 %}
 
-%option c++
+%option debug
+%option nodefault
+%option yyclass="MC::MC_Scanner"
 %option noyywrap
-%option yyclass="MiniScanner"
+%option c++
 
-%{
-    int lexem_iterator = 0;
-%}
+/* The rules are executed sequentially, therefore in this place the order of recording the
+ * instructions is IMPORTANT. In particular, regular expressions that are responsible
+ * for keywords like "static" must be placed before the regular expression that is responsible
+ * for naming variables. Thus, due to a higher priority, words like "this" become *keywords*. */
 
-LEX_COMMENT 		\/\/.*|\/\*((.|\n)*?)\*\/
-LEX_SPACE			[\n\r\t ]+
+LEX_CLASS      "class"
+LEX_PRIVACY    "private"|"public"
+LEX_STATIC     "static"
+LEX_VOID       "void"
+LEX_MAIN       "main"
+LEX_EXTENDS    "extends"
+LEX_RETURN     "return"
+LEX_IF         "if"
+LEX_ELSE       "else"
+LEX_WHILE      "while"
+LEX_PRINT       "System.out.println"
+LEX_LENGTH     "length"
+LEX_NEW        "new"
+LEX_THIS       "this"
+LEX_TRUE       "true"
+LEX_FALSE      "false"
+LEX_STRING     "String"
+LEX_BOOLEAN    "boolean"
+LEX_INT        "int"
+LEX_DIGIT      [0-9]
+LEX_LETTER     [a-zA-Z_]
+LEX_INTEGER_LITERAL   [1-9]{LEX_DIGIT}*|0
+LEX_LOGIC_LITERAL     {LEX_TRUE}|{LEX_FALSE}
+LEX_ID         {LEX_LETTER}({LEX_DIGIT}|{LEX_LETTER})*
+LEX_COMMENT    (\/\/.*)|(\/\*((.|\n)*?)\*\/)
+LEX_SPACE      [\n\r\t ]+
+LEX_OPERATORS  "+"|"-"|"*"|"/"|"%"|"=="|"&&"|"||"|"<"|">"
+LEX_ASSIGN     "="
 
-LEX_CLASS 			"class"
-
-LEX_PIBLIC			"public"
-LEX_STATIC			"static"
-LEX_VOID			"void"
-LEX_MAIN 			"main"
-LEX_EXTENDS 		"extends"
-LEX_RETURN 			"return"
-
-LEX_STRING 			"String"
-LEX_INT 			"int"
-LEX_BOOL 			"boolean"
-
-LEX_SEMI			";"
-LEX_ASSIGN			"="
-LEX_DOT				"."
-LEX_COMMA           ","
-
-LEX_NOT				"!"
-LEX_AND 			"&&"
-
-LEX_L_BRACE 		"("
-LEX_R_BRACE 		")"
-LEX_LSQ_BRACE 		"["
-LEX_RSQ_BRACE  		"]"
-LEX_LF_BRACE 		"{"
-LEX_RF_BRACE 		"}"
-
-LEX_IF 				"if"
-LEX_ELSE 			"else"
-LEX_WHILE 			"while"
-LEX_OUT 			"System.out.println"
-
-LEX_LEN 			"length"
-LEX_THIS 			"this"
-LEX_NEW 			"new"
-
-LEX_LOGIC_LIT 		"True" | "False"
-LEX_DIGIT           [0-9]
-LEX_LETTER          [a-zA-Z]
-LEX_ID              {LETTER}({DIGIT}|{LETTER})*
-LEX_INTEGER         [1-9]{DIGIT}*|0
-LEX_OPERATION       "&&" | "<" | "+" | "-" | "*"
+LEX_DOT_COMMA ";"
+LEX_DOT "."
+LEX_COMMA ","
+LEX_LBRACKET "("
+LEX_RBRACKET ")"
+LEX_LSQUAREBRACKET "["
+LEX_RSQUAREBRACKET "]"
+LEX_LBRACE "{"
+LEX_RBRACE "}"
+LEX_UNARY_NEGATION "!"
 
 %%
 
-{LEX_INTEGER} {
-    handleToken("INTEGER", lexem_iterator);
-}
+%{
+  yylval = lval;
+%}
 
-{LEX_LOGIC_LIT} {
-    handleToken("LOGIC_LITERAL", lexem_iterator);
-}
-
-{LEX_CLASS} {
-    handleToken("CLASS", lexem_iterator);
-}
-
-{LEX_PUBLIC} {
-    handleToken("PUBLIC", lexem_iterator);
-}
-
-{LEX_STATIC} {
-    handleToken("STATIC", lexem_iterator);
-}
-
-{LEX_VOID} {
-    handleToken("VOID", lexem_iterator);
-}
-
-{LEX_MAIN} {
-    handleToken("MAIN", lexem_iterator);
-}
 
 {LEX_EXTENDS} {
-    handleToken("EXTENDS", lexem_iterator);
+    return token::EXTENDS;
 }
 
-{LEX_RETURN} {
-    handleToken("RETURN", lexem_iterator);
+
+{LEX_BOOLEAN} {
+    return token::BOOLEAN;
 }
 
-{LEX_IF} {
-    handleToken("IF", lexem_iterator);
-}
 
 {LEX_ELSE} {
-    handleToken("ELSE", lexem_iterator);
+    return token::ELSE;
+}
+
+{LEX_PRINT} {
+    return token::PRINT;
 }
 
 {LEX_WHILE} {
-    handleToken("WHILE", lexem_iterator);
+    return token::WHILE;
 }
 
-{LEX_OUT} {
-    handleToken("OUT", lexem_iterator);
+{LEX_IF} {
+    return token::IF;
 }
 
-{LEX_LEN} {
-    handleToken("LEN", lexem_iterator);
+{LEX_COMMA} {
+    return token::COMMA;
 }
 
-{LEX_NEW} {
-    handleToken("NEW", lexem_iterator);
+{LEX_STATIC} {
+    return token::STATIC;
 }
 
-{LEX_THIS} {
-    handleToken("THIS", lexem_iterator);
+{LEX_CLASS} {
+    return token::CLASS;
+}
+
+{LEX_MAIN} {
+    return token::MAIN;
 }
 
 {LEX_STRING} {
-    handleToken("STRING", lexem_iterator);
+    return token::STRING;
 }
 
-{LEX_BOOL} {
-    handleToken("BOOL", lexem_iterator);
+{LEX_VOID} {
+    return token::VOID;
+}
+
+{LEX_PRIVACY} {
+    yylval->build<std::string>(yytext);
+    return token::PRIVACY;
+}
+
+{LEX_RETURN} {
+    return token::RETURN;
 }
 
 {LEX_INT} {
-    handleToken("INT", lexem_iterator);
+    return token::INT;
 }
 
-{LEX_AND} {
-    handleToken("AND", lexem_iterator);
+
+{LEX_DOT_COMMA} {
+    return token::DOT_COMMA;
+}
+
+
+{LEX_ASSIGN} {
+    return token::ASSIGN;
+}
+
+
+{LEX_INTEGER_LITERAL} {
+    yylval->build<int>(atoi(yytext));
+    return token::INTEGER_LITERAL;
+}
+
+{LEX_LOGIC_LITERAL} {
+    yylval->build<std::string>(std::string(yytext));
+    return token::LOGICAL_LITERAL;
+}
+
+{LEX_LENGTH} {
+    return token::LENGTH;
+}
+
+{LEX_NEW} {
+    return token::NEW;
+}
+
+{LEX_THIS} {
+    return token::THIS;
 }
 
 {LEX_ID} {
-    handleToken("ID(" + std::string(yytext) +")", lexem_iterator);
+    yylval->build<std::string>(yytext);
+    return token::IDENTIFIER;
+}
+
+
+{LEX_COMMENT} {
+// comments and spaces are ignored
 }
 
 {LEX_SPACE} {
-    handleToken("", lexem_iterator);
+
 }
 
-{LEX_COMMENT} {
-    handleToken("COMMENT", lexem_iterator);
+{LEX_OPERATORS} {
+	yylval->build<std::string>(yytext);
+    return token::OPERATION_LITERAL;
 }
 
-{LEX_OPERATION} { handleToken(std::string(1, yytext[0]), lexem_iterator); }
+{LEX_LBRACKET} {
+    return token::LBRACKET;
+}
 
-.  { std::cout << std::endl << "UNKNOWN  " << yytext << std::endl; }
+{LEX_RBRACKET} {
+    return token::RBRACKET;
+}
 
+{LEX_LSQUAREBRACKET} {
+    return token::LSQUAREBRACKET;
+}
+
+{LEX_RSQUAREBRACKET} {
+    return token::RSQUAREBRACKET;
+}
+
+{LEX_LBRACE} {
+    return token::LBRACE;
+}
+
+{LEX_RBRACE} {
+    return token::RBRACE;
+}
+
+{LEX_DOT} {
+    return token::DOT;
+}
+
+
+{LEX_UNARY_NEGATION} {
+    return token::UNARY_NEGATION;
+}
+
+<<EOF>>  {
+    yyterminate();
+    return 0;
+}
+
+.  { 
+// for errors
+std::cout << std::endl << "UNKNOWN  " << yytext << std::endl; 
+}
 %%
