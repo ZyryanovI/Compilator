@@ -56,7 +56,9 @@ public:
 private:
     std::unique_ptr<ISubTreeWrapper> curWrapper = nullptr;
     Table* table;
-    Symbol* callerClass;
+    Symbol* callerClass;    
+    ClassInfo* curClass = nullptr;
+    MethodInfo* curMethod = nullptr;
     int ifCounter = 0;
     int whileCounter = 0;
 };
