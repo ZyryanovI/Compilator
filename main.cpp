@@ -10,11 +10,6 @@
 #include <cstdio>
 #include <iostream>
 
-//#include "IRTree_canonical/Translator.h"
-//#include "IRTree_canonical/IRPrinter.h"
-#include "IRTree/canonizers/CallCanon.h"
-#include "IRTree/canonizers/ESeqCanon.h"
-
 extern int yyparse(Goal *goal);
 
 extern void yyerror(Goal *goal, const char *msg);
@@ -46,10 +41,10 @@ int main(int argc, char **argv) {
         translator.visit(goal);
 
         // Print IRT
-        for (auto &codeFragment : translator.fragments) {
-            IRPrinter printer("output" + codeFragment.first + ".dot");
-            codeFragment.second.body->Accept(&printer);
-        }
+//         for (auto &codeFragment : translator.fragments) {
+//             IRPrinter printer("output" + codeFragment.first + ".dot");
+//             codeFragment.second.body->Accept(&printer);
+//         }
 
     } catch (...) {
         fclose(myfile);
