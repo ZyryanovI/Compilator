@@ -51,28 +51,6 @@ int main(int argc, char **argv) {
             codeFragment.second.body->Accept(&printer);
         }
 
-
-
-        // Canonize IRT
-        //std::map<std::string, CodeFragment> codeFragments;
-        //codeFragments = std::move( translator.fragments);
-
-        for (auto &codeFragment : translator.fragments) {
-            IRT::CallCanon callCanonizator;
-            codeFragment.second.body->Accept( &callCanonizator );
-            codeFragment.second.rootCanonIRT = callCanonizator.CanonicalTree();
-
-            IRT::ESeqCanon eseqCanonizator;
-            codeFragment.second.rootCanonIRT->Accept( &eseqCanonizator );
-            codeFragment.second.rootCanonIRT = eseqCanonizator.CanonicalTree();
-        }
-//
-        //draw Canonized IRT
-        for (auto &codeFragment : translator.fragments) {
-            IRPrinter printer("output" + codeFragment.first + "_canonized.dot");
-            codeFragment.second.rootCanonIRT->Accept(&printer);
-        }
-
     } catch (...) {
         fclose(myfile);
         delete goal;
