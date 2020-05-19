@@ -3,34 +3,6 @@
 #include <variant>
 #include <iostream>
 
-void Translator::AddClassFields(ClassInfo *class_info) {
-    if (class_info->parent != nullptr) {
-        AddClassFields(class_info->parentInfo);
-    }
-    for (auto &var : class_info->vars) {
-        curFrame->AddFormal(var.first->getString());
-    }
-}
-
-void Translator::AddMethodFields(MethodInfo *method_info) {
-    for (auto &arg : method_info->args) {
-        curFrame->AddLocal(arg.first->getString());
-    }
-    for (auto &loc : method_info->locals) {
-        curFrame->AddLocal(loc.first->getString());
-    }
-}
-
-void Translator::BuildFrame(Symbol *class_name, Symbol *method_name) {
-    ClassInfo *class_info = table->classes[class_name];
-    MethodInfo *method_info = class_info->methods[method_name];
-
-    curFrame = new X86MiniJavaFrame(class_name, method_name);
-
-    AddClassFields(class_info);
-    AddMethodFields(method_info);
-}
-
 void Translator::AcceptStms(const std::vector<std::unique_ptr<IStatement>> *statements) {
     std::unique_ptr<ISubTreeWrapper> st_list = nullptr;
 
@@ -62,15 +34,12 @@ void Translator::visit(const MainClass *n) {
     auto name = dynamic_cast<Identifier *>(n->class_name.get())->name;
     curClass = table->classes[name];
     curMethod = curClass->methods[InternTable::getIntern("main")];
-    BuildFrame(curClass->name, curMethod->name);
-    auto frame_name = curFrame->GetName();
+//     auto frame_name = curFrame->GetName();
 
     n->statement->Accept(this);
-    auto wrapper = std::move(curWrapper);
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(
-        new StmWrapper(new SeqStatement(new LabelStatement(frame_name), wrapper->ToStm())));
-    CodeFragment cf(curFrame, curWrapper->ToStm());
-    fragments.emplace(frame_name, std::move(cf));
+//     auto wrapper = std::move(curWrapper);
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(
+//         new StmWrapper(new SeqStatement(new LabelStatement(frame_name), wrapper->ToStm())));
     curClass = nullptr;
     curMethod = nullptr;
 }
@@ -93,7 +62,6 @@ void Translator::visit(const VarDeclaration *) {
 void Translator::visit(const MethodDeclaration *n) {
     auto name = dynamic_cast<Identifier *>(n->name.get())->name;
     curMethod = curClass->methods[name];
-    BuildFrame(curClass->name, curMethod->name);
 
     AcceptStms(n->statements.get());
     auto stm_wrapper = std::move(curWrapper);
@@ -101,18 +69,16 @@ void Translator::visit(const MethodDeclaration *n) {
     n->return_expression->Accept(this);
     auto return_exp = curWrapper->ToExp();
 
-    auto frame_name = curFrame->GetName();
+//     auto frame_name = curFrame->GetName();
 
-    if (stm_wrapper) {
-        curWrapper = std::unique_ptr<ISubTreeWrapper>(new StmWrapper(new SeqStatement(
-            new LabelStatement(frame_name),
-            new SeqStatement(
-                stm_wrapper->ToStm(),
-                new MoveStatement(curFrame->GetAccess(X86MiniJavaFrame::return_pointer)->GetExp(),
-                                  return_exp)))));
-    }
-    CodeFragment cf(curFrame, curWrapper->ToStm());
-    fragments.emplace(frame_name, std::move(cf));
+//     if (stm_wrapper) {
+//         curWrapper = std::unique_ptr<ISubTreeWrapper>(new StmWrapper(new SeqStatement(
+//             new LabelStatement(frame_name),
+//             new SeqStatement(
+//                 stm_wrapper->ToStm(),
+//                 new MoveStatement(curFrame->GetAccess(X86MiniJavaFrame::return_pointer)->GetExp(),
+//                                   return_exp)))));
+//     }
     curMethod = nullptr;
 }
 
@@ -181,8 +147,8 @@ void Translator::visit(const PrintStatement *n) {
     n->print->Accept(this);
 
     auto str = std::string("print");
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(
-        new ExpWrapper(curFrame->ExternalCall(str, curWrapper->ToExp())));
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(
+//         new ExpWrapper(curFrame->ExternalCall(str, curWrapper->ToExp())));
 }
 
 void Translator::visit(const AssignmentStatement *n) {
@@ -205,13 +171,13 @@ void Translator::visit(const ArrAssignmentStatement *n) {
     n->expr->Accept(this);
     auto expr = curWrapper->ToExp();
 
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(new StmWrapper(new MoveStatement(
-        expr, new MemExpression(new BinOpExpression(
-                  BinOpExpression::BinOp::PLUS, var,
-                  new BinOpExpression(BinOpExpression::BinOp::MULT,
-                                      new BinOpExpression(BinOpExpression::BinOp::PLUS, num,
-                                                          new ConstExpression(1)),
-                                      new ConstExpression(curFrame->WordSize())))))));
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(new StmWrapper(new MoveStatement(
+//         expr, new MemExpression(new BinOpExpression(
+//                   BinOpExpression::BinOp::PLUS, var,
+//                   new BinOpExpression(BinOpExpression::BinOp::MULT,
+//                                       new BinOpExpression(BinOpExpression::BinOp::PLUS, num,
+//                                                           new ConstExpression(1)),
+//                                       new ConstExpression(curFrame->WordSize())))))));
 }
 
 void Translator::visit(const AndExpression *n) {
@@ -298,13 +264,13 @@ void Translator::visit(const ArrayExpression *n) {
     n->expr2->Accept(this);
     auto expr2 = std::move(curWrapper);
 
-    curWrapper =
-        std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(new MemExpression(new BinOpExpression(
-            BinOpExpression::BinOp::PLUS, expr1->ToExp(),
-            new BinOpExpression(BinOpExpression::BinOp::MULT,
-                                new BinOpExpression(BinOpExpression::BinOp::PLUS, expr2->ToExp(),
-                                                    new ConstExpression(1)),
-                                new ConstExpression(curFrame->WordSize()))))));
+//     curWrapper =
+//         std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(new MemExpression(new BinOpExpression(
+//             BinOpExpression::BinOp::PLUS, expr1->ToExp(),
+//             new BinOpExpression(BinOpExpression::BinOp::MULT,
+//                                 new BinOpExpression(BinOpExpression::BinOp::PLUS, expr2->ToExp(),
+//                                                     new ConstExpression(1)),
+//                                 new ConstExpression(curFrame->WordSize()))))));
 }
 
 void Translator::visit(const LengthExpression *n) {
@@ -344,8 +310,8 @@ void Translator::visit(const IdentExpression *n) {
 }
 
 void Translator::visit(const This *) {
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(
-        new ExpWrapper(curFrame->GetAccess(X86MiniJavaFrame::this_pointer)->GetExp()));
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(
+//         new ExpWrapper(curFrame->GetAccess(X86MiniJavaFrame::this_pointer)->GetExp()));
     callerClass = curClass->name;
 }
 
@@ -355,11 +321,11 @@ void Translator::visit(const NewArrExpression *n) {
 
     auto str = std::string("malloc");
 
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(curFrame->ExternalCall(
-        str, new BinOpExpression(
-                 BinOpExpression::BinOp::MULT,
-                 new BinOpExpression(BinOpExpression::BinOp::PLUS, expr, new ConstExpression(1)),
-                 new ConstExpression(curFrame->WordSize())))));
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(curFrame->ExternalCall(
+//         str, new BinOpExpression(
+//                  BinOpExpression::BinOp::MULT,
+//                  new BinOpExpression(BinOpExpression::BinOp::PLUS, expr, new ConstExpression(1)),
+//                  new ConstExpression(curFrame->WordSize())))));
 }
 
 void Translator::visit(const NewExpression *n) {
@@ -368,9 +334,9 @@ void Translator::visit(const NewExpression *n) {
 
     auto str = std::string("malloc");
 
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(curFrame->ExternalCall(
-        str, new BinOpExpression(BinOpExpression::BinOp::MULT, new ConstExpression(fields),
-                                 new ConstExpression(curFrame->WordSize())))));
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(curFrame->ExternalCall(
+//         str, new BinOpExpression(BinOpExpression::BinOp::MULT, new ConstExpression(fields),
+//                                  new ConstExpression(curFrame->WordSize())))));
 
     callerClass = dynamic_cast<Identifier *>(n->ident.get())->name;
 }
@@ -391,10 +357,10 @@ void Translator::visit(const Identifier *n) {
 
     // auto name = dynamic_cast<Identifier*>(n->ident.get())->name
     auto name = n->name;
-    IAccess *address = curFrame->GetAccess(name->getString());
+//     IAccess *address = curFrame->GetAccess(name->getString());
     Type *type;
 
-    curWrapper = std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(address->GetExp()));
+//     curWrapper = std::unique_ptr<ISubTreeWrapper>(new ExpWrapper(address->GetExp()));
     auto local = curMethod->locals.find(name);
     auto arg = curMethod->args.find(name);
     if (local == curMethod->locals.end() && arg == curMethod->args.end()) {
