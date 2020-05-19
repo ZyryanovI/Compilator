@@ -2,8 +2,6 @@
 #include "../Visitor.h"
 #include "../SymbolTable/Table.h"
 #include "../SymbolTable/Symbol.h"
-#include "../ActivationRecords/IFrame.h"
-#include "../ActivationRecords/X86MiniJavaFrame.h"
 #include "IRStatement.h"
 #include "IRExpression.h"
 #include "Statement.h"
@@ -16,11 +14,7 @@ class Translator : public Visitor {
 
 public:
     Translator(Table* table);
-    void AddClassFields(ClassInfo* class_info);
-    void AddMethodFields(MethodInfo* method_info);
-    void BuildFrame(Symbol* class_name, Symbol* method_name);
     void AcceptStms(const std::vector<std::unique_ptr<IStatement>>* statements);
-    // std::map<std::string, CodeFragment> GetFragments() {return fragments;}
 
     void visit(const Goal* n) override;
     void visit(const MainClass* n) override;
@@ -59,10 +53,7 @@ public:
 
     void visit(const Identifier* n) override;
 
-    std::map<std::string, CodeFragment> fragments;
-
 private:
-    IFrame* curFrame = nullptr;
     std::unique_ptr<ISubTreeWrapper> curWrapper = nullptr;
     ClassInfo* curClass = nullptr;
     MethodInfo* curMethod = nullptr;
