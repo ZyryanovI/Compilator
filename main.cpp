@@ -10,11 +10,6 @@
 #include <cstdio>
 #include <iostream>
 
-//#include "IRTree_canonical/Translator.h"
-//#include "IRTree_canonical/IRPrinter.h"
-#include "IRTree/canonizers/CallCanon.h"
-#include "IRTree/canonizers/ESeqCanon.h"
-
 extern int yyparse(Goal *goal);
 
 extern void yyerror(Goal *goal, const char *msg);
@@ -49,28 +44,6 @@ int main(int argc, char **argv) {
         for (auto &codeFragment : translator.fragments) {
             IRPrinter printer("output" + codeFragment.first + ".dot");
             codeFragment.second.body->Accept(&printer);
-        }
-
-
-
-        // Canonize IRT
-        //std::map<std::string, CodeFragment> codeFragments;
-        //codeFragments = std::move( translator.fragments);
-
-        for (auto &codeFragment : translator.fragments) {
-            IRT::CallCanon callCanonizator;
-            codeFragment.second.body->Accept( &callCanonizator );
-            codeFragment.second.rootCanonIRT = callCanonizator.CanonicalTree();
-
-            IRT::ESeqCanon eseqCanonizator;
-            codeFragment.second.rootCanonIRT->Accept( &eseqCanonizator );
-            codeFragment.second.rootCanonIRT = eseqCanonizator.CanonicalTree();
-        }
-//
-        //draw Canonized IRT
-        for (auto &codeFragment : translator.fragments) {
-            IRPrinter printer("output" + codeFragment.first + "_canonized.dot");
-            codeFragment.second.rootCanonIRT->Accept(&printer);
         }
 
     } catch (...) {
