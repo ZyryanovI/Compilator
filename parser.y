@@ -123,6 +123,9 @@ void yyerror(Goal** goal, const char* s);
 %type <classes> classesDeclaration
 
 
+%destructor { delete $$; } classesDeclaration methodsDeclaration varDeclaration
+
+
 %%
 parser:
 	mainClass classesDeclaration {
