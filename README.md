@@ -2,7 +2,6 @@
 
 This is a project for creation a MiniJava Compiler.
 
-Find out what MiniJava is, [here](http://www.cambridge.org/resources/052182060X/MCIIJ2e/grammar.htm)
 
 ## How to run
 To compile:
@@ -34,7 +33,7 @@ To run static analyzer (do it only after cleaning!):
 make static
 ```
 
-## TODO
+
 ### Done
 * Add flex
 * Add bison
@@ -48,7 +47,3 @@ make static
 * Add IRT + visualization
 * Add autotests
 * Add statyc analyzer
-
-### Not done yet
-* Add classic tree
-* Add tree linearization

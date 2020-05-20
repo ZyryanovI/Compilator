@@ -26,7 +26,7 @@ SYMBOLTABLE=SymbolTable/Symbol.cpp SymbolTable/ClassInfo.cpp SymbolTable/MethodI
 
 ACTIVATIONRECORDS=ActivationRecords/InFrameAccess.cpp ActivationRecords/InRegAccess.cpp ActivationRecords/X86MiniJavaFrame.cpp
 
-IRTREE=IRTree/Expression.cpp IRTree/Statement.cpp IRTree/SubTreeWrapper.cpp IRTree/Translator.cpp IRTree/IRPrinter.cpp IRTree/canonizers/CallCanon.cpp IRTree/canonizers/ESeqCanon.cpp IRTree/Label.cpp
+IRTREE=IRTree/Expression.cpp IRTree/Statement.cpp IRTree/SubTreeWrapper.cpp IRTree/Translator.cpp IRTree/IRPrinter.cpp IRTree/Label.cpp
 
 parser.tab.o: parser.tab.c parser.tab.h
 	clang++ ${CXXFLAGS} -Wno-deprecated -c parser.tab.c -o parser.tab.o
