@@ -48,7 +48,6 @@ make static
 * Add printer
 * Add AST visualization
 * Add Symbols Table
-* Add Activations Records
 * Add IRT + visualization
 * Add autotests
 * Add statyc analyzer
