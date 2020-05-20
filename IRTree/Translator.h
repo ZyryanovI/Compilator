@@ -2,8 +2,6 @@
 #include "../Visitor.h"
 #include "../SymbolTable/Table.h"
 #include "../SymbolTable/Symbol.h"
-#include "../ActivationRecords/IFrame.h"
-#include "../ActivationRecords/X86MiniJavaFrame.h"
 #include "IRStatement.h"
 #include "IRExpression.h"
 #include "Statement.h"
