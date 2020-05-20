@@ -1,4 +1,25 @@
-#include "X86MiniJavaFrame.h"
+#include "CodeFragment.h"
+
+InFrameAccess::InFrameAccess(IAccess *address, int offset) : address(address), offset(offset) {
+}
+
+IRExpression *InFrameAccess::GetExp() {
+    IRExpression *return_exp;
+    if (offset != 0) {
+        return_exp = new BinOpExpression(BinOpExpression::BinOp::PLUS, address->GetExp(),
+                                         new ConstExpression(offset));
+    } else {
+        return_exp = address->GetExp();
+    }
+    return new MemExpression(return_exp);
+}
+
+InRegAccess::InRegAccess(std::string name) : name(name) {
+}
+
+IRExpression *InRegAccess::GetExp() {
+    return new TempExpression(name);    // 123
+}
 
 const std::string X86MiniJavaFrame::frame_pointer = "__frame__";
 const std::string X86MiniJavaFrame::this_pointer = "__this__";
