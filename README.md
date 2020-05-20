@@ -19,7 +19,7 @@ It will read `input.txt`, parse it through final-state machine, create AST, draw
 
 To run autotests:
 ```
-./simple_test.sh
+./simple_tests.sh
 ```
 
 To show graph: <br />
