@@ -6,20 +6,6 @@
 #include <string>
 #include <map>
 
-class CodeFragment {
-public:
-    CodeFragment(IFrame* frame, IRStatement* body) : frame(frame), body(body), rootCanonIRT( nullptr ) {
-    }
-
-    CodeFragment(CodeFragment&& other)
-        : frame(std::move(other.frame)), body(std::move(other.body)), rootCanonIRT( nullptr ) {
-    }
-
-    IFrame* frame;
-    IRStatement* body;
-    std::unique_ptr<const IRStatement> rootCanonIRT;
-};
-
 class IAccess {
 public:
     virtual ~IAccess() = default;
@@ -78,4 +64,18 @@ private:
     int frame_size;
     const int word_size = 4;
     std::map<std::string, IAccess*> addresses;
+};
+
+class CodeFragment {
+public:
+    CodeFragment(IFrame* frame, IRStatement* body) : frame(frame), body(body), rootCanonIRT( nullptr ) {
+    }
+
+    CodeFragment(CodeFragment&& other)
+        : frame(std::move(other.frame)), body(std::move(other.body)), rootCanonIRT( nullptr ) {
+    }
+
+    IFrame* frame;
+    IRStatement* body;
+    std::unique_ptr<const IRStatement> rootCanonIRT;
 };
