@@ -17,6 +17,11 @@ To run:
 
 It will read `input.txt`, parse it through final-state machine, create AST, draw in into `output.dot` file, create Symbols Table and IRT (and draw it in several files names `outputCLASS_NAME::METHOD_NAME.dot`).
 
+To run autotests:
+```
+./simple_test.sh
+```
+
 To show graph: <br />
 ```asm
 sudo apt install xdot
