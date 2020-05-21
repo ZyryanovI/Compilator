@@ -10,9 +10,9 @@
 ### This is a MiniJava Compiler.
 ## How to run
 To clone:
-'''
+```
 git clone https://github.com/ZyryanovI/Compilator.git
-'''
+```
 To compile:
 ```
 make
