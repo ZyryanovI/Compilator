@@ -13,18 +13,11 @@ To clone:
 ```
 git clone https://github.com/ZyryanovI/Compilator.git
 ```
-To compile:
-```
-make
-```
-It will compile `bison` and `flex` to produce final-state machine (debug is in `parser.output`), compile AST, Symbols Table and IRT.
-
 To run:
 ```
-./parser
+./init.sh
 ```
-
-It will read `input.txt`, parse it through final-state machine, create AST, draw in into `output.dot` file, create Symbols Table and IRT (and draw it in several files names `outputCLASS_NAME::METHOD_NAME.dot`).
+It will compile `bison` and `flex` to produce final-state machine (debug is in `parser.output`), compile AST, Symbols Table and IRT. Than it will read `input.txt`, parse it through final-state machine, create AST, draw in into `output.dot` file, create Symbols Table and IRT (and draw it in several files names `outputCLASS_NAME::METHOD_NAME.dot`).
 
 To run autotests:
 ```
@@ -37,7 +30,7 @@ sudo apt install xdot
 xdot output.dot
 ```
 
-To clean:
+To clean generated files:
 ```
 make clean
 ```
