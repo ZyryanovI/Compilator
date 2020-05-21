@@ -6,8 +6,9 @@ ClassDeclaration::ClassDeclaration(int first_line, int first_column, IIdentifier
                                    IIdentifier *extends_class_name,
                                    std::vector<std::unique_ptr<IVarDeclaration>> *vars,
                                    std::vector<std::unique_ptr<IMethodDeclaration>> *methods) {
-    if (class_name == nullptr || vars == nullptr || methods == nullptr) {
-        std::cout << "Nullptr encountered in ClassDeclaration initializer.\n";
+    if ( class_name == nullptr || vars == nullptr || methods == nullptr ) {
+        std::cout << "Nullptr encountered in ClassDeclaration initializer."<< std::endl;
+        return;
     }
     this->first_line = first_line;
     this->first_column = first_column;
