@@ -11,5 +11,5 @@ public:
 
     MainClass(int first_line, int first_column, IIdentifier* class_name, IIdentifier* arg, IStatement* statement);
 
-    void Accept(Visitor* v) const override;
+    void Accept(Visitor* visitor) const override;
 };

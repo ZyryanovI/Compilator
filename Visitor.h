@@ -2,6 +2,9 @@
 
 #include "AST/Goal.h"
 #include "AST/MainClass.h"
+#include "AST/ClassDeclaration.h"
+#include "AST/VarDeclaration.h"
+#include "AST/MethodDeclaration.h"
 
 //дополнить для остальных классов, когда напишу их
 class Visitor{
