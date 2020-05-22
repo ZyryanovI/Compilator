@@ -11,4 +11,4 @@ add_executable(Compilator
         AST/Goal.h
         AST/Interfaces.h
         main.cpp
-        Visitor.h)
+        Visitor.h AST/MainClass.h AST/MainClass.cpp)
