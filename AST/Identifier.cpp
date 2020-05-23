@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Identifier.h"
+#include "../Visitor.h"
 
 Identifier::Identifier(int first_line, int first_column, std::string name) {
     if (name.empty()) {
