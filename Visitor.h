@@ -8,8 +8,9 @@
 #include "AST/Identifier.h"
 #include "AST/Types.h"
 #include "AST/Expressions.h"
+#include "AST/Statements.h"
 
-//дополнить для остальных классов, когда напишу их
+
 class Visitor{
 public:
     virtual void visit(const Goal*) = 0;
@@ -42,5 +43,11 @@ public:
     virtual void visit(const NotExpression*) = 0;
     virtual void visit(const Expression*) = 0;
 
+    virtual void visit(const IfStatement*) = 0;
+    virtual void visit(const WhileStatement*) = 0;
+    virtual void visit(const Statement*) = 0;
+    virtual void visit(const PrintStatement*) = 0;
+    virtual void visit(const AssignmentStatement*) = 0;
+    virtual void visit(const ArrAssignmentStatement*) = 0;
 };
 
