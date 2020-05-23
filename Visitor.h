@@ -5,6 +5,7 @@
 #include "AST/ClassDeclaration.h"
 #include "AST/VarDeclaration.h"
 #include "AST/MethodDeclaration.h"
+#include "AST/Identifier.h"
 
 //дополнить для остальных классов, когда напишу их
 class Visitor{
@@ -14,5 +15,7 @@ public:
     virtual void visit(const ClassDeclaration*) = 0;
     virtual void visit(const VarDeclaration*) = 0;
     virtual void visit(const MethodDeclaration*) = 0;
+
+    virtual void visit(const Identifier*) = 0;
 };
 

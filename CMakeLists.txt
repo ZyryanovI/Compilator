@@ -11,4 +11,4 @@ add_executable(Compilator
         AST/Goal.h
         AST/Interfaces.h
         main.cpp
-        Visitor.h AST/MainClass.h AST/MainClass.cpp AST/ClassDeclaration.h AST/ClassDeclaration.cpp AST/VarDeclaration.h AST/VarDeclaration.cpp AST/MethodDeclaration.h AST/MethodDeclaration.cpp)
+        Visitor.h AST/MainClass.h AST/MainClass.cpp AST/ClassDeclaration.h AST/ClassDeclaration.cpp AST/VarDeclaration.h AST/VarDeclaration.cpp AST/MethodDeclaration.h AST/MethodDeclaration.cpp AST/Identifier.h AST/Identifier.cpp)
