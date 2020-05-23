@@ -56,6 +56,7 @@ struct ClassType {
 using TYPE = std::variant<NoneType, IntType, BoolType, IntArrType, ClassType>; //типы
 
 class Type : public IType {
+public:
     TYPE type;
 
     bool operator==(const Type& t) const {
