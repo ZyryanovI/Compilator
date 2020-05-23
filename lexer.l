@@ -2,7 +2,10 @@
 %option outfile="parser.lexer.c" header-file="parser.lexer.h"
 
 %{
+#include <string>
 #include <iostream>
+using namespace std;
+
 #include "parser.tab.h"
 
 yy::location loc;
@@ -68,9 +71,8 @@ COMMENT 	"//".*\n
 "System.out.println" 	{ return yy::parser::make_PRINT(loc);}
 ".length" 	{ return yy::parser::make_LENGTH(loc);}
 
-{ ID } 		{return yy::parser::make_ID(std::string(yytext), loc);}
-{ NUM } 	{return yy::parser::make_NUM(atoi(yytext), loc);}
+{ ID } 		{ return yy::parser::make_ID(std::string(yytext), loc); }
+{ NUM } 	{ return yy::parser::make_NUM(atoi(yytext), loc); }
 
-<<EOF>> 	{ return yy::parser::make_END(loc); }
-. 			{ throw yy::parser::syntax_error(loc, "Invalid syntax: " + std::string(yytext)); }
+. 			{ cout << "Invalid syntax: " << yytext << "\n"; throw std::exception(); }
 %%
