@@ -7,6 +7,7 @@
 #include "AST/MethodDeclaration.h"
 #include "AST/Identifier.h"
 #include "AST/Types.h"
+#include "AST/Expressions.h"
 
 //дополнить для остальных классов, когда напишу их
 class Visitor{
@@ -21,6 +22,25 @@ public:
 
     virtual void visit(const Type*) = 0;
 
+    virtual void visit(const MinusExpression*) = 0;
+    virtual void visit(const PlusExpression*) = 0;
+    virtual void visit(const AndExpression*) = 0;
+    virtual void visit(const LessExpression*) = 0;
+    virtual void visit(const MultExpression*) = 0;
+
+    virtual void visit(const ArrayExpression*) = 0;
+    virtual void visit(const LengthExpression*) = 0;
+    virtual void visit(const MethodExpression*) = 0;
+
+    virtual void visit(const Integer*) = 0;
+    virtual void visit(const Bool*) = 0;
+    virtual void visit(const IdentExpression*) = 0;
+
+    virtual void visit(const This*) = 0;
+    virtual void visit(const NewArrExpression*) = 0;
+    virtual void visit(const NewExpression*) = 0;
+    virtual void visit(const NotExpression*) = 0;
+    virtual void visit(const Expression*) = 0;
 
 };
 
