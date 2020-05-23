@@ -1,12 +1,13 @@
 #pragma once
 #include "Interfaces.h"
 #include <string>
+#include "../SymbolTable/Symbol.h"
 
 class Identifier : public IIdentifier {
 public:
-    std::string name;
+    Symbol* name;
 
-    Identifier(int first_line, int first_column, std::string name);
+    Identifier(int first_line, int first_column, Symbol* name);
 
     void Accept(Visitor* visitor) const;
 
