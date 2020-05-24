@@ -7,6 +7,8 @@
 #include <memory>
 #include <utility>
 
+#include "../Visitor.h"
+
 class Visitor;
 
 
