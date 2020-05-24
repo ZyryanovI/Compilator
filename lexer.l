@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-#include "parser.tab.h"
+#include "parser.tab.hh"
 
 void update_pos() {
 	yylloc.first_column = yylloc.last_column;

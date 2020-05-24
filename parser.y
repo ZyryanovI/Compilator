@@ -17,11 +17,11 @@ void yyerror(Goal** goal, const char* s);
 %}
 
 %code requires {
-#include "AST/INode.h"
+#include "AST/Interfaces.h"
 #include "AST/Identifier.h"
-#include "AST/Expression.h"
-#include "AST/Statement.h"
-#include "AST/Type.h"
+#include "AST/Expressions.h"
+#include "AST/Statements.h"
+#include "AST/Types.h"
 #include "AST/VarDeclaration.h"
 #include "AST/MethodDeclaration.h"
 #include "AST/ClassDeclaration.h"
