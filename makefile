@@ -9,7 +9,6 @@ parser.lexer.c parser.lexer.h: lexer.l parser.tab.c parser.tab.h
 
 # тут обьявляем флаги, которые потом используем при запуске через clang
 DEBUG_FLAGS=-fsanitize=address,undefined,leak -g
-
 CXXFLAGS=-std=c++17
 
 # эти файлы нужны для аст
@@ -18,8 +17,6 @@ AST=AST/Identifier.hpp AST/Expressions.hpp AST/Statements.cpp AST/Types.hpp AST/
 # а эти для таблицы символов
 SYMBOLTABLE=SymbolTable/Symbol.cpp SymbolTable/ClassInfo.cpp SymbolTable/MethodInfo.cpp SymbolTable/VarInfo.cpp
 
-# куда пишем: что
-# команда для сборки
 parser.tab.o: parser.tab.c parser.tab.h
 	clang++ ${CXXFLAGS} -Wno-deprecated -c parser.tab.c -o parser.tab.o
 
