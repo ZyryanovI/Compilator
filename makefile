@@ -10,7 +10,7 @@ DEBUG_FLAGS=-fsanitize=address,undefined,leak -g
 
 CXXFLAGS=-std=c++17
 
-AST=AST/Identifier.cpp AST/Expression.cpp AST/Statement.cpp AST/Type.cpp AST/VarDeclaration.cpp AST/MethodDeclaration.cpp AST/ClassDeclaration.cpp AST/MainClass.cpp AST/Goal.cpp
+AST=AST/Identifier.cpp AST/Expressions.cpp AST/Statements.cpp AST/Types.cpp AST/VarDeclaration.cpp AST/MethodDeclaration.cpp AST/ClassDeclaration.cpp AST/MainClass.cpp AST/Goal.cpp
 
 PRINTER=ASTPrinter.cpp
 
