@@ -93,7 +93,6 @@ void yyerror(Goal** goal, const char* s);
 	std::vector<std::unique_ptr<IVarDeclaration>>* varDeclarvals;
 	std::vector<std::pair<std::unique_ptr<IType>, std::unique_ptr<IIdentifier>>>* methodParamval;
 	IClassDeclaration* classDeclarval;
-	IIdentifier* extval;
 	std::vector<std::unique_ptr<IMethodDeclaration>>* methodDeclarvals;
 	std::vector<std::unique_ptr<IClassDeclaration>>* classDeclarvals;
 	IMainClass* mainval;
@@ -114,7 +113,7 @@ void yyerror(Goal** goal, const char* s);
 %type <varDeclarvals> varsDeclaration
 %type <methodParamval> methodParams
 %type <classDeclarval> classDeclaration
-%type <extval> extends
+%type <idval> extends
 %type <methodDeclarvals> methodsDeclaration
 %type <classDeclarvals> classesDeclaration
 %type <mainval> mainClass
