@@ -1,13 +1,6 @@
 #pragma once
 
 #include "Interfaces.hpp"
-#include "../Visitor.h"
-
-#include <iostream>
-#include <vector>
-#include <memory>
-#include <utility>
-
 
 class MethodDeclaration : public IMethodDeclaration {
 public:
@@ -24,7 +17,7 @@ public:
         std::vector<std::unique_ptr<IStatement>> *statements, IExpression *return_expression) {
 
     if (return_type == nullptr || name == nullptr || args == nullptr || vars == nullptr || statements == nullptr || return_expression == nullptr) {
-        throw "There is nullptr in MethodDeclaration initialization";
+        std::cout<< "There is nullptr in MethodDeclaration initialization"<<std::endl;
     }
 
     this->first_line = first_line;
@@ -41,4 +34,5 @@ public:
 
 void Accept(Visitor* visitor) const {
     visitor->visit(this);
+}
 };
