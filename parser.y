@@ -7,7 +7,7 @@
 #include <exception>
 using namespace std;
 
-#include "goal.tab.hh"
+#include "parser.tab.h"
 
 extern int yylex();
 extern int yyparse(Goal** goal);

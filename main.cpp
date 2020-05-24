@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdio>
-#include "parser.tab.hh"
+#include "parser.tab.h"
 #include "AST/Goal.h"
 #include "ASTPrinter.h"
 #include "SymbolTable/Symbol.h"
