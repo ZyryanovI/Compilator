@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Symbol.hpp"
-#include "../AST/Types.h"
+#include "../AST/Types.hpp"
 
 class VariableInfo {
 public:
