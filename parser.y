@@ -82,22 +82,22 @@ void yyerror(Goal** goal, const char* s);
 	int intval;
 	char* strval;
 
- 	IIdentifier* idval
-	IExpression* expval
-	std::vector<std::unique_ptr<IExpression>>* expvals
-	IStatement* statval
-	std::vector<std::unique_ptr<IStatement>>* statvals
-	IType* typeval
-	IVarDeclaration* varDeclarval
-	IMethodDeclaration* methodDeclarval
-	std::vector<std::unique_ptr<IVarDeclaration>>* varDeclarvals
-	std::vector<std::pair<std::unique_ptr<IType>, std::unique_ptr<IIdentifier>>>* methodParamval
-	IClassDeclaration* classDeclarval
-	IIdentifier* extval
-	std::vector<std::unique_ptr<IMethodDeclaration>>* methodDeclarvals
-	std::vector<std::unique_ptr<IClassDeclaration>>* classDeclarvals
-	IMainClass* mainval
-	IGoal* goalval
+ 	IIdentifier* idval;
+	IExpression* expval;
+	std::vector<std::unique_ptr<IExpression>>* expvals;
+	IStatement* statval;
+	std::vector<std::unique_ptr<IStatement>>* statvals;
+	IType* typeval;
+	IVarDeclaration* varDeclarval;
+	IMethodDeclaration* methodDeclarval;
+	std::vector<std::unique_ptr<IVarDeclaration>>* varDeclarvals;
+	std::vector<std::pair<std::unique_ptr<IType>, std::unique_ptr<IIdentifier>>>* methodParamval;
+	IClassDeclaration* classDeclarval;
+	IIdentifier* extval;
+	std::vector<std::unique_ptr<IMethodDeclaration>>* methodDeclarvals;
+	std::vector<std::unique_ptr<IClassDeclaration>>* classDeclarvals;
+	IMainClass* mainval;
+	IGoal* goalval;
 }
 
 %token <intval> 	NUM
