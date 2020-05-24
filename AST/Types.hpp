@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Interfaces.h"
-#include "Identifier.h"
-#include <memory>
+#include "Interfaces.hpp"
+#include "Identifier.hpp"
+
 #include <variant>
 
 //переопределим операторы для типов(так будет удобнее потом)
@@ -69,5 +69,7 @@ public:
     template <typename T>
     Type(T&& t) : type(t) {}
 
-    void Accept(Visitor* v) const;
+    void Accept(Visitor* visitor) const {
+    visitor->visit(this);
+    }
 };
