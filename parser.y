@@ -79,29 +79,46 @@ void yyerror(Goal** goal, const char* s);
 %left LENGTH
 
 %union {
-  int intval;
-  char* strval;
+	int intval;
+	char* strval;
+
+ 	IIdentifier* idval
+	IExpression* expval
+	std::vector<std::unique_ptr<IExpression>>* expvals
+	IStatement* statval
+	std::vector<std::unique_ptr<IStatement>>* statvals
+	IType* typeval
+	IVarDeclaration* varDeclarval
+	IMethodDeclaration* methodDeclarval
+	std::vector<std::unique_ptr<IVarDeclaration>>* varDeclarvals
+	std::vector<std::pair<std::unique_ptr<IType>, std::unique_ptr<IIdentifier>>>* methodParamval
+	IClassDeclaration* classDeclarval
+	IIdentifier* extval
+	std::vector<std::unique_ptr<IMethodDeclaration>>* methodDeclarvals
+	std::vector<std::unique_ptr<IClassDeclaration>>* classDeclarvals
+	IMainClass* mainval
+	IGoal* goalval
 }
 
 %token <intval> 	NUM
 %token <strval> 	ID
 
-%type <IIdentifier*> identifier
-%type <IExpression*> expression
-%type <std::vector<std::unique_ptr<IExpression>>*> expressions
-%type <IStatement*> statement
-%type <std::vector<std::unique_ptr<IStatement>>*> statements
-%type <IType*> type
-%type <IVarDeclaration*> varDeclaration
-%type <IMethodDeclaration*> methodDeclaration
-%type <std::vector<std::unique_ptr<IVarDeclaration>>*> varsDeclaration
-%type <std::vector<std::pair<std::unique_ptr<IType>, std::unique_ptr<IIdentifier>>>*> methodParams
-%type <IClassDeclaration*> classDeclaration
-%type <IIdentifier*> extends
-%type <std::vector<std::unique_ptr<IMethodDeclaration>>*> methodsDeclaration
-%type <std::vector<std::unique_ptr<IClassDeclaration>>*> classesDeclaration
-%type <IMainClass*> mainClass
-%type <IGoal*> parser
+%type <idval> identifier
+%type <expval> expression
+%type <expvals> expressions
+%type <statval> statement
+%type <statvals> statements
+%type <typeval> type
+%type <varDeclarval> varDeclaration
+%type <methodDeclarval> methodDeclaration
+%type <varDeclarvals> varsDeclaration
+%type <methodParamval> methodParams
+%type <classDeclarval> classDeclaration
+%type <extval> extends
+%type <methodDeclarvals> methodsDeclaration
+%type <classDeclarvals> classesDeclaration
+%type <mainval> mainClass
+%type <goalval> parser
 
 %start parser
 
