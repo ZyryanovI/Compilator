@@ -12,7 +12,6 @@ CXXFLAGS=-std=c++17
 
 AST=AST/Identifier.cpp AST/Expressions.cpp AST/Statements.cpp AST/Types.cpp AST/VarDeclaration.cpp AST/MethodDeclaration.cpp AST/ClassDeclaration.cpp AST/MainClass.cpp AST/Goal.cpp
 
-PRINTER=ASTPrinter.cpp
 
 SYMBOLTABLE=SymbolTable/Symbol.cpp SymbolTable/ClassInfo.cpp SymbolTable/MethodInfo.cpp SymbolTable/VarInfo.cpp
 
@@ -28,10 +27,10 @@ TableBuilder.o: SymbolTable/TableBuilder.cpp
 ASTPrinter.o: ASTPrinter.cpp
 	clang++ ${CXXFLAGS} -c ASTPrinter.cpp -o ASTPrinter.o
 
-out: parser.lexer.o parser.tab.o TableBuilder.o ASTPrinter.o main.cpp ${AST} ${PRINTER} ${SYMBOLTABLE}
+out: parser.lexer.o parser.tab.o TableBuilder.o ASTPrinter.o main.cpp ${AST} ${SYMBOLTABLE}
 	clang++ ${CXXFLAGS} main.cpp \
 		parser.tab.o parser.lexer.o TableBuilder.o ASTPrinter.o \
-		 ${AST} ${PRINTER} ${SYMBOLTABLE} -o out
+		 ${AST} ${SYMBOLTABLE} -o out
 
 clean:
 	rm -f out parser.lexer.c parser.lexer.h parser.tab.c parser.tab.h parser.output *.dot *.o *.hh *.cc
