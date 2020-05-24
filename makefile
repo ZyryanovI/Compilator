@@ -12,8 +12,7 @@ CXXFLAGS=-std=c++17
 
 AST=AST/Identifier.cpp AST/Expressions.cpp AST/Statements.cpp AST/Types.cpp AST/VarDeclaration.cpp AST/MethodDeclaration.cpp AST/ClassDeclaration.cpp AST/MainClass.cpp AST/Goal.cpp
 
-
-SYMBOLTABLE=SymbolTable/Symbol.cpp SymbolTable/ClassInfo.cpp SymbolTable/MethodInfo.cpp SymbolTable/VarInfo.cpp
+SYMBOLTABLE=SymbolTable/Symbol.hpp SymbolTable/ClassInfo.hpp SymbolTable/MethodInfo.hpp SymbolTable/VarInfo.hpp
 
 parser.tab.o: parser.tab.c parser.tab.h
 	clang++ ${CXXFLAGS} -Wno-deprecated -c parser.tab.c -o parser.tab.o
