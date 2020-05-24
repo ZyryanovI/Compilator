@@ -1,8 +1,8 @@
-#include "Symbol.h"
-#include "Table.h"
-#include "ClassInfo.h"
-#include "MethodInfo.h"
-#include "VarInfo.h"
+#include "Symbol.hpp"
+#include "Table.hpp"
+#include "ClassInfo.hpp"
+#include "MethodInfo.hpp"
+#include "VarInfo.hpp"
 #include "../Visitor.h"
 
 #include <vector>
