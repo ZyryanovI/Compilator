@@ -5,7 +5,7 @@
 #include "../SymbolTable/Symbol.h"
 
 #include <string>
-
+#include <iostream>
 
 class Identifier : public IIdentifier {
 public:
