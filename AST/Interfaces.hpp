@@ -1,5 +1,12 @@
 #pragma once
 
+// используемые библиотеки
+
+#include <iostream>
+#include <vector>
+#include <memory>
+#include <utility>
+
 class Visitor;
 
 
