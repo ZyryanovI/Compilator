@@ -524,8 +524,8 @@ void TableBuilder::visit(const NotExpression* exp) {
     exp->expr->Accept(this);
     if (curType != Type(BoolType{})) {
         isvalidExpr = false;
-        errors.push_back("Error at line: " + std::to_string(n->first_line) +
-                         " column: " + std::to_string(n->first_column) +
+        errors.push_back("Error at line: " + std::to_string(exp->first_line) +
+                         " column: " + std::to_string(exp->first_column) +
                          ". Message: boolean type is required.\n");
     }
     curType = Type(BoolType{});
