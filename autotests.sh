@@ -18,11 +18,11 @@ echo ""
 
 BAD_SAMPLES="$(ls BadSamples/ -1)"
 
-for f in $BAD_FILES
+for f in $BAD_SAMPLES
 do
     OUTPUT="$(./out BadSamples/$f)"
     if [ "$OUTPUT" == "$positive_result" ]
     then
-        echo "no error in $f file (but they myst be)"
+	echo "no error in $f file (but they myst be)"
     fi
 done
