@@ -31,5 +31,5 @@ public:
 
     void ClassDeclaration::Accept(Visitor* visitor) const {
     visitor->visit(this);
-} 
+   } 
 };
