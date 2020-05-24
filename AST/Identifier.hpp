@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Interfaces.h"
+#include "Interfaces.hpp"
 #include "../Visitor.h"
 #include "../SymbolTable/Symbol.h"
 
 #include <string>
-#include <iostream>
 
 class Identifier : public IIdentifier {
 public:
