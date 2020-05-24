@@ -1,6 +1,6 @@
 #include <iostream>
-#include "TableBuilder.h"
-#include "Symbol.h"
+#include "TableBuilder.hpp"
+#include "Symbol.hpp"
 #include <cassert>
 #include <exception>
 
