@@ -9,7 +9,7 @@ private:
 
 public:
     ASTPrinter(std::string filename);
-    ~ASTPrinter() override;
+    ~ASTPrinter();
 
     void visit(const Goal* n) override;
     void visit(const MainClass* n) override;
@@ -35,10 +35,6 @@ public:
     void visit(const MinusExpression* n) override;
 
     void visit(const MultExpression* n) override;
-
-    void visit(const OrExpression* n) override;
-
-    void visit(const RemainExpression* n) override;
 
     void visit(const ArrayExpression* n) override;
 

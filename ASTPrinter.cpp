@@ -297,28 +297,6 @@ void ASTPrinter::visit(const MultExpression *n) {
     n->expr2->Accept(this);
 }
 
-void ASTPrinter::visit(const OrExpression *n) {
-    int cur = nodeNumber;
-    fprintf(f, "%d [label=\"OR\"];\n", cur);
-    nodeNumber++;
-    fprintf(f, "%d -- %d;\n", cur, nodeNumber);
-    n->expr1->Accept(this);
-    nodeNumber++;
-    fprintf(f, "%d -- %d;\n", cur, nodeNumber);
-    n->expr2->Accept(this);
-}
-
-void ASTPrinter::visit(const RemainExpression *n) {
-    int cur = nodeNumber;
-    fprintf(f, "%d [label=\"Remain\"];\n", cur);
-    nodeNumber++;
-    fprintf(f, "%d -- %d;\n", cur, nodeNumber);
-    n->expr1->Accept(this);
-    nodeNumber++;
-    fprintf(f, "%d -- %d;\n", cur, nodeNumber);
-    n->expr2->Accept(this);
-}
-
 void ASTPrinter::visit(const ArrayExpression *n) {
     int cur = nodeNumber;
     fprintf(f, "%d [label=\"ArrayExpression\"];\n", cur);
