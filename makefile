@@ -1,13 +1,3 @@
-# минимальная версия cmake
-cmake_minimum_required(VERSION 3.10)
-
-# имя проекта
-project(Compilator VERSION 2.0)
-
-# Версия C++
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
 all: out
 
 parser.tab.c parser.tab.h: parser.y
