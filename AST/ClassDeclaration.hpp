@@ -1,9 +1,6 @@
 #pragma once
 
-#include <vector>
-#include <memory>
-
-#include "Interfaces.h"
+#include "Interfaces.hpp"
 #include "../Visitor.h"
 
 class ClassDeclaration : public IClassDeclaration {
@@ -18,7 +15,7 @@ public:
                                    std::vector<std::unique_ptr<IVarDeclaration>> *vars,
                                    std::vector<std::unique_ptr<IMethodDeclaration>> *methods) {
     if (class_name == nullptr || vars == nullptr || methods == nullptr) {
-        throw "There is nullptr in ClassDeclaration initialization";
+        std::cout << "There is nullptr in ClassDeclaration initialization" << std::endl;
     }
     this->first_line = first_line;
     this->first_column = first_column;
