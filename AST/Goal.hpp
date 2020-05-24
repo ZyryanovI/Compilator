@@ -2,10 +2,8 @@
 
 /*Класс, отвечающий за вход в AST. Содержит ссылку на класс Main и вектор ссылок на остальные классы*/
 
-#include <vector>
-#include <memory>
 
-#include "Interfaces.h"
+#include "Interfaces.hpp"
 #include "../Visitor.h"
 
 class Goal: public IGoal{
