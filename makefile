@@ -28,9 +28,9 @@ TableBuilder.o: SymbolTable/TableBuilder.cpp
 ASTPrinter.o: ASTPrinter.cpp
 	clang++ ${CXXFLAGS} -c ASTPrinter.cpp -o ASTPrinter.o
 
-out: parser.lexer.o parser.tab.o TableBuilder.o Printer_graph.o main.cpp ${AST} ${PRINTER} ${SYMBOLTABLE}
+out: parser.lexer.o parser.tab.o TableBuilder.o ASTPrinter.o main.cpp ${AST} ${PRINTER} ${SYMBOLTABLE}
 	clang++ ${CXXFLAGS} main.cpp \
-		parser.tab.o parser.lexer.o TableBuilder.o Printer_graph.o \
+		parser.tab.o parser.lexer.o TableBuilder.o ASTPrinter.o \
 		 ${AST} ${PRINTER} ${SYMBOLTABLE} -o out
 
 clean:
