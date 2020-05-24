@@ -7,7 +7,7 @@
 #include <exception>
 using namespace std;
 
-#include "goal.tab.h"
+#include "goal.tab.hh"
 
 extern int yylex();
 extern int yyparse(Goal** goal);
@@ -17,11 +17,11 @@ void yyerror(Goal** goal, const char* s);
 %}
 
 %code requires {
-#include "AST/Interfaces.h"
+#include "AST/INode.h"
 #include "AST/Identifier.h"
-#include "AST/Expressions.h"
-#include "AST/Statements.h"
-#include "AST/Types.h"
+#include "AST/Expression.h"
+#include "AST/Statement.h"
+#include "AST/Type.h"
 #include "AST/VarDeclaration.h"
 #include "AST/MethodDeclaration.h"
 #include "AST/ClassDeclaration.h"
@@ -30,17 +30,9 @@ void yyerror(Goal** goal, const char* s);
 #include "SymbolTable/Symbol.h"
 }
 
-%language "c++"
 %parse-param {Goal** goal}
 %define parse.error verbose
 %locations
-
-%token PLUS 	"+"
-%token MINUS 	"-"
-%token MULT 	"*"
-%token AND 		"&&"
-%token LESS 	"<"
-%token NOT 		"!"
 
 %left PLUS
 %left MINUS
@@ -49,47 +41,42 @@ void yyerror(Goal** goal, const char* s);
 %left LESS
 %left NOT
 
-%token R_LEFT	"("
-%token R_RIGHT	")"
-%token F_LEFT	"{"
-%token F_RIGHT	"}"
-%token Q_LEFT	"["
-%token Q_RIGHT	"]"
-%token DOT 		"."
-%token COMMA 	","
-%token SCOLON 	";"
-%token EQ 		"="
+%token R_LEFT
+%token R_RIGHT
+%token F_LEFT
+%token F_RIGHT
+%token Q_RIGHT
+%token COMMA
+%token SCOLON
+%token EQ
 
 %right Q_LEFT
 %right DOT
 
-%token INT 		"int"
-%token BOOL 	"boolean"
-%token STRING 	"String"
+%token INT
+%token BOOL
+%token STRING
 
-%token TRUE 	"true"
-%token FALSE 	"false"
+%token TRUE
+%token FALSE
 
-%token THIS 	"this"
-%token NEW 		"new"
-%token CLASS 	"class"
-%token PUBLIC 	"public"
-%token STATIC 	"static"
-%token VOID 	"void"
-%token EXTENDS 	"extends"
-%token MAIN 	"main"
-%token RETURN 	"return"
+%token THIS
+%token NEW
+%token CLASS
+%token PUBLIC
+%token STATIC
+%token VOID
+%token EXTENDS
+%token MAIN
+%token RETURN
 
-%token IF 		"if"
-%token ELSE 	"else"
-%token WHILE 	"where"
+%token IF
+%token ELSE
+%token WHILE
 
-%token PRINT 	"System.out.println"
-%token LENGTH 	"length"
+%token PRINT
 
 %left LENGTH
-
-%token END 0
 
 %union {
   int intval;
