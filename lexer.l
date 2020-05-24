@@ -8,71 +8,78 @@ using namespace std;
 
 #include "parser.tab.h"
 
-yy::location loc;
+void update_pos() {
+	yylloc.first_column = yylloc.last_column;
+	yylloc.last_column += yyleng;
+}
 
-#define YY_DECL yy::parser::symbol_type yylex()
-#define YY_USER_ACTION loc.columns(yyleng);
+void ignore_line() {
+	yylloc.first_line++;
+	yylloc.last_line++;
+	yylloc.first_column = 1;
+	yylloc.last_column = 1;
+}
+
 %}
 
 DIGIT		[0-9]
-NUM 		({DIGIT})+
+NUMBER 		({DIGIT})+
 CHAR		[a-zA-Z_]
 STRING 		({CHAR})+
-ID			{STRING}({STRING}|{NUM})*
+IDENT		{STRING}({STRING}|{NUMBER})*
 COMMENT 	"//".*\n
 
-
 %%
-" " 		{ loc.step(); }
-\t 			{ loc.step(); }
-\n 			{ loc.lines(yyleng); loc.step(); }
-{COMMENT} 	{ loc.step(); }
+" " 		{ update_pos(); }
+\t 			{ update_pos(); }
+\n 			{ ignore_line(); }
+{COMMENT} 	{ ignore_line(); }
 
+"+" 		{ update_pos(); return PLUS; }
+"-" 		{ update_pos(); return MINUS;}
+"*" 		{ update_pos(); return MULT;}
+"&&" 		{ update_pos(); return AND;}
+"<" 		{ update_pos(); return LESS;}
+"!" 		{ update_pos(); return NOT;}
 
-"+" 		{ return yy::parser::make_PLUS(loc); }
-"-" 		{ return yy::parser::make_MINUS(loc);}
-"*" 		{ return yy::parser::make_MULT(loc);}
-"&&" 		{ return yy::parser::make_AND(loc);}
-"<" 		{ return yy::parser::make_LESS(loc);}
-"!" 		{ return yy::parser::make_NOT(loc);}
+"(" 		{ update_pos(); return R_LEFT;}
+")" 		{ update_pos(); return R_RIGHT;}
+"{" 		{ update_pos(); return F_LEFT;}
+"}" 		{ update_pos(); return F_RIGHT;}
+"[" 		{ update_pos(); return Q_LEFT;}
+"]" 		{ update_pos(); return Q_RIGHT;}
+"." 		{ update_pos(); return DOT;}
+"," 		{ update_pos(); return COMMA;}
+";" 		{ update_pos(); return SCOLON;}
+"=" 		{ update_pos(); return EQ;}
 
-"(" 		{ return yy::parser::make_R_LEFT(loc);}
-")" 		{ return yy::parser::make_R_RIGHT(loc);}
-"{" 		{ return yy::parser::make_F_LEFT(loc);}
-"}" 		{ return yy::parser::make_F_RIGHT(loc);}
-"[" 		{ return yy::parser::make_Q_LEFT(loc);}
-"]" 		{ return yy::parser::make_Q_RIGHT(loc);}
-"." 		{ return yy::parser::make_DOT(loc);}
-"," 		{ return yy::parser::make_COMMA(loc);}
-";" 		{ return yy::parser::make_SCOLON(loc);}
-"=" 		{ return yy::parser::make_EQ(loc);}
+"int" 		{ update_pos(); return INT;}
+"boolean" 	{ update_pos(); return BOOL;}
+"String" 	{ update_pos(); return STRING;}
 
-"int" 		{ return yy::parser::make_INT(loc);}
-"boolean" 	{ return yy::parser::make_BOOL(loc);}
-"String" 	{ return yy::parser::make_STRING(loc);}
+"true" 		{ update_pos(); return TRUE;}
+"false" 	{ update_pos(); return FALSE;}
 
-"true" 		{ return yy::parser::make_TRUE(loc);}
-"false" 	{ return yy::parser::make_FALSE(loc);}
+"this" 		{ update_pos(); return THIS;}
+"new" 		{ update_pos(); return NEW;}
+"class" 	{ update_pos(); return CLASS;}
+"public" 	{ update_pos(); return PUBLIC;}
+"static" 	{ update_pos(); return STATIC;}
+"void" 		{ update_pos(); return VOID;}
+"extends" 	{ update_pos(); return EXTENDS;}
+"main" 		{ update_pos(); return MAIN;}
+"return" 	{ update_pos(); return RETURN;}
 
-"this" 		{ return yy::parser::make_THIS(loc);}
-"new" 		{ return yy::parser::make_NEW(loc);}
-"class" 	{ return yy::parser::make_CLASS(loc);}
-"public" 	{ return yy::parser::make_PUBLIC(loc);}
-"static" 	{ return yy::parser::make_STATIC(loc);}
-"void" 		{ return yy::parser::make_VOID(loc);}
-"extends" 	{ return yy::parser::make_EXTENDS(loc);}
-"main" 		{ return yy::parser::make_MAIN(loc);}
-"return" 	{ return yy::parser::make_RETURN(loc);}
+"if" 		{ update_pos(); return IF;}
+"else" 		{ update_pos(); return ELSE;}
+"while" 	{ update_pos(); return WHILE;}
 
-"if" 		{ return yy::parser::make_IF(loc);}
-"else" 		{ return yy::parser::make_ELSE(loc);}
-"while" 	{ return yy::parser::make_WHILE(loc);}
+"System.out.println" 	{ update_pos(); return PRINT;}
+".length" 	{ update_pos(); return LENGTH;}
 
-"System.out.println" 	{ return yy::parser::make_PRINT(loc);}
-".length" 	{ return yy::parser::make_LENGTH(loc);}
+{IDENT} 	{ yylval.strval = strdup(yytext); update_pos(); return ID; }
+{NUMBER} 	{ yylval.intval = atoi(yytext); update_pos(); return NUM; }
 
-{ ID } 		{ return yy::parser::make_ID(std::string(yytext), loc); }
-{ NUM } 	{ return yy::parser::make_NUM(atoi(yytext), loc); }
+. {cout << "Invalid syntax: " << yytext << " at line " << yylloc.first_line << ", column " << yylloc.last_column << "\n"; throw std::exception();}
 
-. 			{ cout << "Invalid syntax: " << yytext << "\n"; throw std::exception(); }
 %%

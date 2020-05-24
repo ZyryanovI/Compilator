@@ -33,8 +33,6 @@ void yyerror(Goal** goal, const char* s);
 %language "c++"
 %parse-param {Goal** goal}
 %define parse.error verbose
-%define api.value.type variant
-%define api.token.constructor
 %locations
 
 %token PLUS 	"+"
@@ -91,8 +89,15 @@ void yyerror(Goal** goal, const char* s);
 
 %left LENGTH
 
-%token <int> 	NUM
-%token <char*> 	ID
+%token END 0
+
+%union {
+  int intval;
+  char* strval;
+}
+
+%token <intval> 	NUM
+%token <strval> 	ID
 
 %type <IIdentifier*> identifier
 %type <IExpression*> expression
